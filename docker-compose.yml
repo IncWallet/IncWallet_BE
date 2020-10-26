@@ -1,0 +1,12 @@
+# docker-compose.yml
+
+cli:
+  build: .
+  restart: always
+  links:
+    - mongo
+  ports:
+    - '9000:9000'
+
+mongo:
+  image: mongo

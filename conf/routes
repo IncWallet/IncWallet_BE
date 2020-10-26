@@ -1,0 +1,66 @@
+# Routes Config
+#
+# This file defines all application routes (Higher priority routes first)
+#
+
+module:testrunner
+# module:jobs
+
+
+GET     /                                       App.Index
+
+# Ignore favicon requests
+GET     /favicon.ico                            404
+
+# Map static resources from the /app/public folder to the /public path
+GET     /public/*filepath                       Static.Serve("public")
+
+POST    /state                                  StateCtrl.GetInfo
+
+POST    /wallet/create                          WalletCtrl.CreateWallet
+POST    /wallet/import                          WalletCtrl.ImportWallet
+
+POST    /accounts/add                           AccountsCtrl.AddAccount
+POST    /accounts/switch                        AccountsCtrl.SwitchAccount
+POST    /accounts/import                        AccountsCtrl.ImportAccount
+POST    /accounts/balance                       AccountsCtrl.GetBalance
+POST    /accounts/list                          AccountsCtrl.ListAccount
+POST    /accounts/sync                          AccountsCtrl.SyncAccount
+POST    /accounts/syncall                       AccountsCtrl.SyncAllAccounts
+POST    /accounts/unspent                       AccountsCtrl.ListUnspent
+POST    /accounts/info                          AccountsCtrl.GetInfo
+
+POST    /addressbooks/add                       AddressBookCtrl.AddAddress
+POST    /addressbooks/remove                    AddressBookCtrl.RemoveAddress
+POST    /addressbooks/getbyname                 AddressBookCtrl.GetByName
+POST    /addressbooks/getbypaymentaddress       AddressBookCtrl.GetByPaymentAddress
+POST    /addressbooks/getall                    AddressBookCtrl.GetAll
+
+POST    /transactions/create                    TransactionsCtrl.InitTransaction
+GET     /transactions/history                   TransactionsCtrl.GetTxHistory
+POST    /transactions/createtoken               TransactionsCtrl.InitTokenTransaction
+POST    /transactions/info                      TransactionsCtrl.GetTxInfo
+
+GET     /network/getalltokens                   NetworkCtrl.GetAllToken
+POST    /network/gettokenbyid                   NetworkCtrl.GetTokenByID
+POST    /network/gettokenbysymbol               NetworkCtrl.GetTokenBySymbol
+
+POST    /pde/price                              PdeCtrl.GetPdePoolPairPrice
+POST    /pde/crossprice                         PdeCtrl.GetPdeCrossPoolPairPrice
+GET     /pde/txhistory                          PdeCtrl.GetPdeTradeHistory
+POST    /pde/tradeprv                           TransactionsCtrl.InitTradePRVTransaction
+POST    /pde/tradetoken                         TransactionsCtrl.InitTradeTokenTransaction
+POST    /pde/tradecross                         TransactionsCtrl.InitTradeCrossTokenTransaction
+
+POST    /miner/info                             MinerCtrl.GetInfoByAccount
+POST    /miner/allinfo                          MinerCtrl.GetInfoByAllAccounts
+
+# Catch all, this will route any request into the controller path
+#
+#                    **** WARNING ****
+# Enabling this exposes any controller and function to the web.
+# ** This is a serious security issue if used online **
+#
+# For rapid development uncomment the following to add new controller.action endpoints
+# without having to add them to the routes table.
+# *       /:controller/:action                    :controller.:action
